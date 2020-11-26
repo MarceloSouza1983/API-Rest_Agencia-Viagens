@@ -5,6 +5,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +18,12 @@ public class AdviceController {
     public ApiErro handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<String> listaDeErros = e.getBindingResult().getAllErrors().stream().map(err -> err.getDefaultMessage()).collect(Collectors.toList());
         return new ApiErro(listaDeErros);
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErro handleResponseStatusException(ResponseStatusException e) {
+        return new ApiErro(e.getMessage());
     }
 
 }
