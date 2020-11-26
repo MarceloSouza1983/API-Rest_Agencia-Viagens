@@ -14,6 +14,7 @@ public class NovaCompanhiaRequest {
     private String nome;
 
     @NotNull
+    @ExisteId(atributo = "id", classe = Pais.class, message = "Não foi encontrado Pais com o id informado, informe um País válido")
     private Long idPais;
 
 
