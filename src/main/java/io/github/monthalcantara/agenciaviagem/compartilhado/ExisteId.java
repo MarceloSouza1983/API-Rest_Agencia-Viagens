@@ -1,6 +1,4 @@
-package io.github.monthalcantara.agenciaviagem.companhia;
-
-import io.github.monthalcantara.agenciaviagem.compartilhado.ExisteIdValidator;
+package io.github.monthalcantara.agenciaviagem.compartilhado;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
