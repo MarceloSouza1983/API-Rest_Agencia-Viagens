@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 public class NovoAeroportoRequest {
 
@@ -39,8 +40,9 @@ public class NovoAeroportoRequest {
 
     public Aeroporto toModel(EntityManager manager) {
         Pais pais = manager.find(Pais.class, idPais);
-        if (pais == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Não foi encontrado País com o id informado");
+        if (Optional.ofNullable(pais).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Não foi encontrado País com o id informado");
         }
         return new Aeroporto(this.nome, pais);
 
